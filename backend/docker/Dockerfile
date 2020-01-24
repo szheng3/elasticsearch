@@ -2,10 +2,17 @@
 FROM adoptopenjdk/maven-openjdk11
 RUN mkdir /app
 
-ADD . /app
-WORKDIR /app
-RUN mvn clean install
+# copy the project files
+COPY ./pom.xml ./pom.xml
 
+# build all dependencies for offline use
+RUN mvn dependency:go-offline -B
+
+# copy your other files
+COPY ./src ./src
+
+# build for release
+RUN mvn package
 EXPOSE 8080
 
 ENTRYPOINT ["java","-Dspring.profiles.active=prod","-jar","target/demo-0.0.1-SNAPSHOT.jar"]
