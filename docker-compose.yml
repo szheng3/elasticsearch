@@ -30,6 +30,7 @@ services:
       context: ./backend/
       dockerfile: docker/Dockerfile
     image: registry.gitlab.com/szheng3/java-es
+
 #    volumes:
       # Cache maven dependencies
 #      - $HOME/.m2:/root/.m2
@@ -43,6 +44,16 @@ services:
       - ext
     depends_on:
       - elasticsearch
+  angular:
+    build:
+      context: ./frontend/
+      dockerfile: docker/Dockerfile
+    image: registry.gitlab.com/szheng3/angular-es
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8000:80"
+    networks:
+      - ext
 
 
 
