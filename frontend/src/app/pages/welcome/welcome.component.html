@@ -1,0 +1,90 @@
+<nz-page-header nzTitle="Title">
+  <nz-breadcrumb nz-page-header-breadcrumb>
+    <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
+    <nz-breadcrumb-item>
+      <a>Second-level Menu</a>
+    </nz-breadcrumb-item>
+    <nz-breadcrumb-item>Third-level Menu</nz-breadcrumb-item>
+  </nz-breadcrumb>
+</nz-page-header>
+<div nz-row>
+  <div nz-col nzSpan="24">
+    <nz-input-group [nzSuffix]="suffixIconSearch">
+      <input type="text" nz-input placeholder="input search text" (input)="onChange($event)"/>
+    </nz-input-group>
+    <ng-template #suffixIconSearch>
+      <i nz-icon nzType="search"></i>
+    </ng-template>
+  </div>
+</div>
+<div nz-row class="mt-5">
+  <div nz-col nzSpan="24">
+    <strong>Status: </strong>
+    <nz-radio-group [(ngModel)]="selectedStatus" (ngModelChange)="selectChanged($event)">
+      <label nz-radio-button nzValue=""><span>All</span></label>
+      <label nz-radio-button nzValue="active"><span>Active</span></label>
+      <label nz-radio-button nzValue="inactive"><span>Inactive</span></label>
+      <label nz-radio-button nzValue="paused"><span>Paused</span></label>
+    </nz-radio-group>
+  </div>
+</div>
+<div nz-row class="mt-5">
+  <div nz-col nzSpan="24">
+    <strong>Categories: </strong>
+    <nz-tag
+      *ngFor="let tag of category"
+      nzMode="checkable"
+      [nzChecked]="selectedTags.indexOf(tag) > -1"
+      (nzCheckedChange)="handleChange($event, tag)"
+    >
+      {{ tag }}
+    </nz-tag>
+  </div>
+</div>
+
+<nz-slider
+  nzRange
+  [nzStep]="10"
+  [(ngModel)]="rangeValue"
+  (nzOnAfterChange)="onAfterChange($event)"
+></nz-slider>
+
+<div nz-row class="mt-5">
+  <div nz-col nzSpan="24">
+    <nz-table [nzFrontPagination]="false" nzShowPagination *ngIf="data$ | async as data" #basicTable
+              [nzData]="data.ecommerce" [nzTotal]="data.total" [nzPageSize]="10"
+              (nzPageIndexChange)="onIndexChange($event)"
+              [nzPageIndex]="index">
+      <thead>
+      <tr>
+        <th>Name</th>
+        <th>description</th>
+        <th>quantity</th>
+        <th>status</th>
+        <th>category</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>
+          <div [innerHTML]="data.name"></div>
+        </td>
+        <td>
+          <div [innerHTML]="data.description"></div>
+        </td>
+        <td>{{ data.quantity }}</td>
+        <td>
+          <nz-tag [nzColor]="'geekblue'" *ngIf="data.status=='active'">{{data.status}}</nz-tag>
+          <nz-tag [nzColor]="'volcano'" *ngIf="data.status=='inactive'">{{data.status}}</nz-tag>
+          <nz-tag [nzColor]="'green'" *ngIf="data.status=='paused'">{{data.status}}</nz-tag>
+        </td>
+
+        <td>
+          <nz-tag *ngFor="let category of data.categories">{{category.name}}</nz-tag>
+
+        </td>
+      </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
