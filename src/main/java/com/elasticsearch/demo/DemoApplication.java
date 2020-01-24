@@ -36,7 +36,7 @@ public class DemoApplication {
 //                .put("client.transport.sniff",true)
                 .put("cluster.name", "elasticsearch_shuai").build();
         TransportClient client = new PreBuiltTransportClient(settings)
-                .addTransportAddress(new TransportAddress(InetAddress.getByName("127.0.0.1"), 9300));
+                .addTransportAddress(new TransportAddress(InetAddress.getByName("elasticsearch"), 9300));
         return client;
     }
 
