@@ -40,6 +40,7 @@ services:
       - elasticsearch
     networks:
       - backend
+      - ext
     depends_on:
       - elasticsearch
 
@@ -51,4 +52,6 @@ volumes:
     driver: local
 networks:
   backend:
-    driver: "bridge"
+    internal: true
+  ext:
+    driver: bridge
