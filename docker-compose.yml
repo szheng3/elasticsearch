@@ -27,7 +27,7 @@ services:
       - backend
   ms:
     build:
-      context: .
+      context: ./backend/
       dockerfile: docker/Dockerfile
     image: registry.gitlab.com/szheng3/java-es
     volumes:
