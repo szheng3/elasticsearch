@@ -20,11 +20,13 @@ export class WelcomeComponent implements OnInit {
   category = [];
   selectedCategory = [];
   rangeValue = [];
+  title$;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
     this.data$ = this.http.get<ResponseTs>('http://localhost:8080/ecommerce?q=');
+    this.title$ = this.http.get('http://localhost:8080');
 
   }
 

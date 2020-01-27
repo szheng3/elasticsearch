@@ -1,4 +1,4 @@
-<nz-page-header nzTitle="Title">
+<nz-page-header *ngIf="title$ | async as title" [nzTitle]="title.name">
   <nz-breadcrumb nz-page-header-breadcrumb>
     <nz-breadcrumb-item>First-level Menu</nz-breadcrumb-item>
     <nz-breadcrumb-item>

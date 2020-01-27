@@ -12,7 +12,7 @@ RUN mvn dependency:go-offline -B
 COPY ./src ./src
 
 # build for release
-RUN mvn package
+RUN mvn package -DskipTests
 EXPOSE 8080
 
 ENTRYPOINT ["java","-Dspring.profiles.active=prod","-jar","target/demo-0.0.1-SNAPSHOT.jar"]

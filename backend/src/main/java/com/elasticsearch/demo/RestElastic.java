@@ -5,6 +5,7 @@ import static org.elasticsearch.index.query.QueryBuilders.boolQuery;
 import com.elasticsearch.demo.builder.ElasticSearchResponseBuilder;
 import com.elasticsearch.demo.repo.EcommerceRepo;
 import com.elasticsearch.demo.response.ElasticSearchResponse;
+import java.util.HashMap;
 import java.util.Optional;
 import java.util.stream.Stream;
 import org.elasticsearch.common.unit.Fuzziness;
@@ -44,6 +45,15 @@ public class RestElastic {
 //        return ecommerceRepo.findAll();
 //
 //    }
+
+    @GetMapping("/")
+    public Object getIndex(){
+        return new HashMap<String,String>(){
+            {
+                put("name","Hello");
+            }
+        };
+    }
 
     @GetMapping("/ecommerce")
     public Object getEcommerce(
